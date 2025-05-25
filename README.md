@@ -174,7 +174,8 @@ Authenticate using **one** of the methods below to generate your `Session ID`.
   </table>
 </div>
 
-> Màke sure your panel have atleast 2gb ram
+> Màke sure your panel have atleast 2gb ram for now
+>  am working on malvin xd to work on free panel servers
 <p align="center"><img src="https://i.imgur.com/LyHic3i.gif" alt="divider"/></p>
 
 ## ⚠️ Disclaimer
