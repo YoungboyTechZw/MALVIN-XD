@@ -5,67 +5,23 @@ malvin({
     pattern: "pair",
     alias: ["getpair", "clonebot"],
     react: "✅",
-    desc: "Get pairing code for XD bot",
-    category: "download",
-    use: ".pair +26377868XXX",
-    filename: __filename
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        // Extract phone number from command
-        const phoneNumber = q ? q.trim() : senderNumber;
-        
-        // Validate phone number format
-        if (!phoneNumber || !phoneNumber.match(/^\+?\d{10,15}$/)) {
-            return await reply("❌ Please provide a valid phone number with country code\nExample: .pair +2637582XXX");
-        }
-
-        // Make API request to get pairing code
-        const response = await axios.get(`https://new-session-m3jx.onrender.com/pair?phone=${encodeURIComponent(phoneNumber)}`);
-        
-        if (!response.data || !response.data.code) {
-            return await reply("❌ Failed to retrieve pairing code. Please try again later.");
-        }
-
-        const pairingCode = response.data.code;
-        const doneMessage = "> *MALVIN-XD PAIRING COMPLETED*";
-
-        // Send initial message with formatting
-        await reply(`${doneMessage}\n\n*Your pairing code is:* ${pairingCode}`);
-
-        // Add 2 second delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Send clean code message
-        await reply(`${pairingCode}`);
-
-    } catch (error) {
-        console.error("Pair command error:", error);
-        await reply("❌ An error occurred while getting pairing code. Please try again later.");
-    }
-});
-
-
-malvin({
-    pattern: "pair2",
-    alias: ["getpair2", "clonebot2"],
-    react: "✅",
     desc: "Get pairing code for MALVIN-XD bot",
     category: "download",
-    use: ".pair +2637582XXX",
+    use: ".pair 263714757xxx",
     filename: __filename
-}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+}, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, senderNumber, reply }) => {
     try {
         // Extract phone number from command
-        const phoneNumber = q ? q.trim() : senderNumber;
-        
+        const phoneNumber = q ? q.trim().replace(/[^0-9]/g, '') : senderNumber.replace(/[^0-9]/g, '');
+
         // Validate phone number format
-        if (!phoneNumber || !phoneNumber.match(/^\+?\d{10,15}$/)) {
-            return await reply("❌ Please provide a valid phone number with country code\nExample: .pair +2637582XXX");
+        if (!phoneNumber || phoneNumber.length < 10 || phoneNumber.length > 15) {
+            return await reply("❌ Please provide a valid phone number without `+`\nExample: `.pair 26371475xxx`");
         }
 
         // Make API request to get pairing code
-        const response = await axios.get(`https://new-session-m3jx.onrender.com/pair?phone=${encodeURIComponent(phoneNumber)}`);
-        
+        const response = await axios.get(`https://new-session-2ag9.onrender.com/code?number=${encodeURIComponent(phoneNumber)}`);
+
         if (!response.data || !response.data.code) {
             return await reply("❌ Failed to retrieve pairing code. Please try again later.");
         }
@@ -76,10 +32,10 @@ malvin({
         // Send initial message with formatting
         await reply(`${doneMessage}\n\n*Your pairing code is:* ${pairingCode}`);
 
-        // Add 2 second delay
+        // Optional 2-second delay
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Send clean code message
+        // Send clean code again
         await reply(`${pairingCode}`);
 
     } catch (error) {

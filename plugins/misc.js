@@ -2,60 +2,6 @@ const axios = require('axios');
 const config = require('../settings');
 const { malvin, commands } = require('../malvin');
 const util = require("util");
-const { getAnti, setAnti, initializeAntiDeleteSettings } = require('../data/antidel');
-
-initializeAntiDeleteSettings();
-
-malvin({
-    pattern: "antidelete",
-    alias: ['antidel', 'ad'],
-    desc: "Configure AntiDelete settings",
-    category: "misc",
-    filename: __filename
-},
-async (conn, mek, m, { reply, q, isCreator }) => {
-    if (!isCreator) return reply('⚠️ This command is only for the *bot owner*!');
-
-    const option = q?.trim();
-
-    try {
-        switch (option) {
-            case '1':
-                await setAnti('gc', true);
-                await setAnti('dm', true);
-                return reply('✅ _AntiDelete is now enabled globally for Group Chats and Direct Messages._');
-
-            case '2':
-                await setAnti('gc', false);
-                await setAnti('dm', true);
-                return reply('✅ _AntiDelete is enabled for Direct Messages only._');
-
-            case '3':
-                await setAnti('gc', true);
-                await setAnti('dm', false);
-                return reply('✅ _AntiDelete is enabled for Group Chats only._');
-
-            case '4':
-                await setAnti('gc', false);
-                await setAnti('dm', false);
-                return reply('❌ _AntiDelete is now completely disabled._');
-
-            default:
-                return reply(
-                    `🛡️ *AntiDelete Setup*\n\n` +
-                    `Usage: eg .ad 1\n\n` +
-                    `*1.* To Enable For All\n` +
-                    `*2.* To Enable for Chats Only\n` +
-                    `*3.* To Enable for Chats & Groups\n` +
-                    `*4.* To Disable Antidelete`
-                );
-        }
-    } catch (err) {
-        console.error('AntiDelete Error:', err);
-        return reply('❌ An unexpected error occurred. Please try again later.');
-    }
-});
-
 
 malvin({
     pattern: "vv3",

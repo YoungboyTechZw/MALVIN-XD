@@ -47,19 +47,19 @@ Authenticate using **one** of the methods below to generate your `Session ID`.
   <img src="https://i.imgur.com/LyHic3i.gif" alt="Authentication Flow Preview" />
 </p>
 
-> 🔸 Pair Code Authentication
+> 🟢 Pair Code Authentication
 
-[![Get Pairing Code](https://img.shields.io/badge/Get%20Pairing%20Code-orange?style=for-the-badge&logo=opencv&logoColor=black)](https://new-session-m3jx.onrender.com/pair)
+[![Get Pairing Code](https://img.shields.io/badge/Get%20Pairing%20Code-orange?style=for-the-badge&logo=opencv&logoColor=black)](https://new-session-lfgw.onrender.com/pair)
 
-> 🔹 QR Code Authentication
+> 🔵 QR Code Authentication
 
-[![Scan QR Code](https://img.shields.io/badge/Scan%20QR%20Code-000000?style=for-the-badge&logo=react&logoColor=white)](https://new-session-m3jx.onrender.com/qr)
+[![Scan QR Code](https://img.shields.io/badge/Scan%20QR%20Code-000000?style=for-the-badge&logo=react&logoColor=white)](https://new-session-lfgw.onrender.com/qr)
 
 
 
 #### 🧩 Session App
 
-[![Session App](https://img.shields.io/badge/Session%20App-000000?style=for-the-badge&logo=react&logoColor=white)](https://new-session-m3jx.onrender.com/)
+[![Session App](https://img.shields.io/badge/Session%20App-000000?style=for-the-badge&logo=react&logoColor=white)](https://new-session-lfgw.onrender.com)
 
 
 
@@ -126,15 +126,58 @@ Authenticate using **one** of the methods below to generate your `Session ID`.
     </tr>
   </table>
 
-  <p align="center">
-    <a href="https://whatsapp.com/channel/0029VbA6MSYJUM2TVOzCSb2A" target="_blank">
-      <img src="https://img.shields.io/badge/View_Workflows-90D366?style=for-the-badge&logo=git&logoColor=blue" alt="Workflow Codes"/>
-    </a>
-  </p>
+<a><img src='https://i.imgur.com/LyHic3i.gif'/>
 
-  <img src="https://github.com/XdKing2/MALVIN-XD/blob/main/assets/techwave.gif?raw=true" width="100%" alt="Divider"/>
-</div>
-<p align="center">
+ <h4 align="center">9. Workflow</h4>
+<p style="text-align: center; font-size: 1.2em;">
+
+
+<details>
+
+<b><strong><summary align="center" style="color: Yello;">Deploy Malvin On Workflow</summary></strong></b>
+<p style="text-align: center; font-size: 1.2em;">
+ 
+<h8>Copy the workflow codes and then fork the repo edit config add session id then save and now click on repo action tag then click on start new workflow then paste workflow codes rename main.yml to deploy.yml and save the file</h8>
+<h3 align-"center"> Important</h3>
+<h6 align-"center">Attention! We do not take responsibility if your github account is suspended through this Deploy method, I advise you not to use this workflow deploy method in the latest github accounts, github accounts created a year or more ago have not received the risk of suspension so far, this works It will only be done for 6 hours, you need to update the code to reactivate it.</h6>
+
+```
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start application
+      run: npm start
+```
+</details> 
+
   <img src="https://i.imgur.com/LyHic3i.gif" width="100%" />
 </p>
 
@@ -229,7 +272,7 @@ Authenticate using **one** of the methods below to generate your `Session ID`.
 
 ```diff
 + Project Status: Active
-! Version: 4.1.5 Neon Edition
+! Version: 0.0.5 Neon Edition
 # License: APACHE
 ```
 <p align="center">

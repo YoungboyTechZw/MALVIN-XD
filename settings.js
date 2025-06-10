@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
 
@@ -14,6 +15,11 @@ BOT_NAME: process.env.BOT_NAME || "ᴍᴀʟᴠɪɴ-xᴅ",
 MODE: process.env.MODE || "public",
 // make bot public-private-inbox-group 
 
+LINK_WHITELIST: "youtube.com,github.com",
+
+    LINK_WARN_LIMIT: 3, // Number of warnings before action
+
+    LINK_ACTION: "kick", // "kick", "mute", or "none"
 
         AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",
 // make true or false status auto seen
@@ -109,21 +115,18 @@ OWNER_NAME: process.env.OWNER_NAME || "ᴍᴀʟᴠɪɴ ᴛᴇᴄʜ",
     ANTI_VV: process.env.ANTI_VV || "true",
 // true for anti once view 
 
-      ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "log", 
-// change it to 'same' if you want to resend deleted message in same chat 
+      ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "inbox", 
+// change it to 'inbox/ same if you want to resend deleted message in same chat 
 
       AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
 // make it true for auto recoding 
 
-version: process.env.version || "4.1.5",
+version: process.env.version || "0.0.5",
 
     
 START_MSG: process.env.START_MSG || `*Hᴇʟʟᴏ ᴛʜᴇʀᴇ ᴍᴀʟᴠɪɴ xᴅ ᴄᴏɴɴᴇᴄᴛᴇᴅ! 👋🏻* 
 
     *ᴋᴇᴇᴘ ᴏɴ ᴜsɪɴɢ ᴍᴀʟᴠɪɴ ᴍᴏᴅs🚩* 
-
-> Joɪɴ ᴡʜᴀᴛsᴀᴘᴘ ᴄʜᴀɴɴᴇʟ (ᴀ ᴍᴜsᴛ): ⤵️  
-    https://whatsapp.com/channel/0029VbA6MSYJUM2TVOzCSb2A
 
 > sᴜʙsᴄʀɪʙᴇ ʏᴛ ᴄʜᴀɴɴᴇʟ ғᴏʀ ᴛᴜᴛᴏʀɪᴀʟs
     https://youtube.com/@malvintech2

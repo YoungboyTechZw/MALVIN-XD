@@ -24,13 +24,13 @@ async (conn, mek, m, { from, q, reply }) => {
         const response = await axios.get(url);
         const translation = response.data.responseData.translatedText;
 
-        const translationMessage = `> *MALVIN XD -TRANSLATION*
+        const translationMessage = `xᴅ ᴛʀᴀɴsʟᴀᴛɪᴏɴ
 
-> 🔤 *Original*: ${textToTranslate}
+  🔤 *Oʀɪɢɪɴᴀʟ*: ${textToTranslate}
 
-> 🔠 *Translated*: ${translation}
+> 🔠 *Tʀᴀɴsʟᴀᴛᴇᴅ*: ${translation}
 
-> 🌐 *Language*: ${targetLang.toUpperCase()}`;
+> 🌐 *Lᴀɴɢᴜᴀɢᴇ*: ${targetLang.toUpperCase()}`;
 
         return reply(translationMessage);
     } catch (e) {
@@ -38,25 +38,3 @@ async (conn, mek, m, { from, q, reply }) => {
         return reply("⚠️ An error occurred data while translating the your text. Please try again later🤕");
     }
 });
-
-//____________________________TTS___________________________
-malvin({
-    pattern: "tts",
-    desc: "download songs",
-    category: "download",
-    react: "👧",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("Need some text.")
-    const url = googleTTS.getAudioUrl(q, {
-  lang: 'hi-IN',
-  slow: false,
-  host: 'https://translate.google.com',
-})
-await conn.sendMessage(from, { audio: { url: url }, mimetype: 'audio/mpeg', ptt: true }, { quoted: mek })
-    }catch(a){
-reply(`${a}`)
-}
-})

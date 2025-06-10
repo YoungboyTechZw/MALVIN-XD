@@ -1,10 +1,18 @@
 const { malvin } = require('../malvin');
 const config = require('../settings');
+const fs = require('fs');
+const path = require('path');
+
+const warnPath = path.join(__dirname, '../data/warnings.json');
+let warnings = fs.existsSync(warnPath) ? JSON.parse(fs.readFileSync(warnPath)) : {};
+
+const saveWarnings = () => {
+  fs.writeFileSync(warnPath, JSON.stringify(warnings, null, 2));
+};
 
 const linkPatterns = [
   /https?:\/\/(?:chat\.whatsapp\.com|wa\.me)\/\S+/gi,
-  /^https?:\/\/(www\.)?whatsapp\.com\/channel\/([a-zA-Z0-9_-]+)$/,
-  /wa\.me\/\S+/gi,
+  /https?:\/\/(www\.)?whatsapp\.com\/channel\/[a-zA-Z0-9_-]+/gi,
   /https?:\/\/(?:t\.me|telegram\.me)\/\S+/gi,
   /https?:\/\/(?:www\.)?youtube\.com\/\S+/gi,
   /https?:\/\/youtu\.be\/\S+/gi,
@@ -14,15 +22,7 @@ const linkPatterns = [
   /https?:\/\/(?:www\.)?twitter\.com\/\S+/gi,
   /https?:\/\/(?:www\.)?tiktok\.com\/\S+/gi,
   /https?:\/\/(?:www\.)?linkedin\.com\/\S+/gi,
-  /https?:\/\/(?:www\.)?snapchat\.com\/\S+/gi,
-  /https?:\/\/(?:www\.)?pinterest\.com\/\S+/gi,
-  /https?:\/\/(?:www\.)?reddit\.com\/\S+/gi,
-  /https?:\/\/ngl\/\S+/gi,
-  /https?:\/\/(?:www\.)?discord\.com\/\S+/gi,
-  /https?:\/\/(?:www\.)?twitch\.tv\/\S+/gi,
-  /https?:\/\/(?:www\.)?vimeo\.com\/\S+/gi,
-  /https?:\/\/(?:www\.)?dailymotion\.com\/\S+/gi,
-  /https?:\/\/(?:www\.)?medium\.com\/\S+/gi
+  /https?:\/\/(?:www\.)?discord\.com\/\S+/gi
 ];
 
 malvin({
@@ -33,19 +33,54 @@ malvin({
   sender,
   isGroup,
   isAdmins,
-  isBotAdmins
+  isBotAdmins,
+  participants
 }) => {
   try {
-    if (!isGroup || isAdmins || !isBotAdmins) {
-      return;
-    }
+    if (!isGroup || isAdmins || !isBotAdmins) return;
 
     const containsLink = linkPatterns.some(pattern => pattern.test(body));
+    if (!containsLink) return;
 
-    if (containsLink && config.DELETE_LINKS === 'true') {
+    const whitelist = config.LINK_WHITELIST?.split(',') || [];
+    const isWhitelisted = whitelist.some(link => body.includes(link));
+    if (isWhitelisted) return;
+
+    // Delete the message
+    if (config.DELETE_LINKS === 'true') {
       await conn.sendMessage(from, { delete: m.key }, { quoted: m });
     }
-  } catch (error) {
-    console.error(error);
+
+    // Add a warning
+    if (!warnings[from]) warnings[from] = {};
+    if (!warnings[from][sender]) warnings[from][sender] = 0;
+
+    warnings[from][sender]++;
+    saveWarnings();
+
+    const warnCount = warnings[from][sender];
+    const limit = parseInt(config.LINK_WARN_LIMIT || 3);
+
+    const senderName = participants.find(p => p.id === sender)?.notify || sender.split('@')[0];
+    await conn.sendMessage(from, {
+      text: `⚠️ @${senderName} posted a link. Warning ${warnCount}/${limit}.`,
+      mentions: [sender]
+    });
+
+    // Kick or mute if limit exceeded
+    if (warnCount >= limit) {
+      if (config.LINK_ACTION === 'kick') {
+        await conn.groupParticipantsUpdate(from, [sender], 'remove');
+      } else if (config.LINK_ACTION === 'mute') {
+        const until = Math.floor(Date.now() / 1000) + 60 * 10; // 10 mins
+        await conn.groupParticipantsUpdate(from, [sender], 'restrict', { mute: until });
+      }
+
+      warnings[from][sender] = 0;
+      saveWarnings();
+    }
+
+  } catch (err) {
+    console.error('Link moderation error:', err);
   }
 });

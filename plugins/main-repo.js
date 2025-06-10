@@ -48,7 +48,7 @@ async (conn, mek, m, { from, reply }) => {
 
         // Send an image with the formatted info as a caption and context info
         await conn.sendMessage(from, {
-            image: { url: `https://files.catbox.moe/l1uebm.jpg` },
+            image: { url: `https://files.catbox.moe/qumhu4.jpg` },
             caption: formattedInfo,
             contextInfo: { 
                 mentionedJid: [m.sender],
@@ -61,7 +61,13 @@ async (conn, mek, m, { from, reply }) => {
                 }
             }
         }, { quoted: mek });
-
+        
+//send audio        
+await conn.sendMessage(from, {
+            audio: fs.readFileSync('./autos/hello.m4a'),
+                    mimetype: 'audio/mp4',
+                    ptt: true,
+                }, { quoted: mek });
     } catch (error) {
         console.error("❌ Error in repo command:", error);
         reply("⚠️ Sorry, something went wrong while fetching the repository information. Please try again later.");

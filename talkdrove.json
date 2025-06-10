@@ -3,7 +3,7 @@
   "description": "ᴊᴀᴠᴀsᴄʀɪᴘᴛ ᴡʜᴀᴛsᴀᴘᴘ ʙᴏᴛ ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴍᴀʟᴠɪɴ ᴋɪɴɢ",
   "logo": "https://files.catbox.moe/juxfce.jpg",
   "keywords": ["bot"],
-  "documentation-link": "https://new-session-m3jx.onrender.com/",
+  "documentation-link": "https://new-session-2ag9.onrender.com/",
     "owner-verification":"malvink003@gmail.com",
   
   "env": {
@@ -15,7 +15,7 @@
       "BOT_NAME": {
         "description": "write here your bot name.",
         "required": true,
-        "value": "〠 ᴍᴀʟᴠɪɴ xᴅ 〠"      
+        "value": "ᴍᴀʟᴠɪɴ-xᴅ"      
     },  
     "MODE": {
       "description": "Set private/public/inbox/groups",

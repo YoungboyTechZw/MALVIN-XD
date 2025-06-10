@@ -1,6 +1,7 @@
+
 {
   "name": "MALVIN-XD",
-  "version": "4.1.5",
+  "version": "0.0.5",
   "description": "A WhatsApp Bot Created By Malvin King",
   "main": "index.js",
   "scripts": {
@@ -9,7 +10,7 @@
     "restart": "pm2 restart MALVIN-XD"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "XdKing2/baileys",
+    "@whiskeysockets/baileys": "npm:asitha-new-v99",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@dark-yasiya/yt-dl.js": "1.0.5",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
